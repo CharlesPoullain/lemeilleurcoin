@@ -19,21 +19,33 @@ class AdType extends AbstractType
             ->add('title', null,
                 array(
                     'attr' => array(
-                        'placeholder' => 'Mon titre',
+                        'placeholder' => 'Titre de l\'annonce',
                     )),
                 ["label" => "Titre"]
             )
-            ->add('description')
+            ->add('description', null, [
+                "label" => "Ville",
+                "attr" => [
+                    'placeholder' => 'Description de l\'annonce',
+                ]
+            ])
             ->add('city', null, [
                 "label" => "Ville",
                 "attr" => [
+                    'placeholder' => 'Ville',
                     "class" => "cityclass"
                 ]
             ])
-            ->add('zip', null, [
+            ->add('zip', null, array(
+                'attr' => array(
+                    'placeholder' => 'Code postal',
+                )),[
                 "label" => "Code Postal"
             ])
-            ->add('price', null, [
+            ->add('price', null,array(
+                'attr' => array(
+                    'placeholder' => 'Prix de l\'annonce',
+                )), [
                 "label" => "Prix demandé"
             ])
             ->add('category', EntityType::class, array(

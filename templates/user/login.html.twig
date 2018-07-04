@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{%  block title %} Annonce |    {{ parent() }}{% endblock %}
+{%  block title %} Login | {{ parent() }}{% endblock %}
 
 {% block main %}
     <style>
@@ -14,13 +14,18 @@
 
         <div style="text-align: center; margin-top: 50px; padding-top: 20px;">
 
-            <form action="{{ path('login') }}" method="post">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+               Les identifiants ne sont pas valides !!!
+            </div>
+            {% endif %}
+            <form action="{{ path('login') }}" method="post" style="width: 40%; margin: auto;">
                 <div class="form-group">
 
-                <label for="username">Username:</label>
+                <label for="username">Nom d'utilisateur :</label>
                 <input  class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
 
-                <label for="password">Password:</label>
+                <label for="password">Mot de passe :</label>
                 <input  class="form-control" type="password" id="password" name="_password" />
 
                 <button style="margin-top: 30px;" type="submit" class="btn btn-primary">Se connecter</button>

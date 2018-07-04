@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends Controller{
 
@@ -17,6 +18,7 @@ class DefaultController extends Controller{
      */
     public function home(Request $req) {
 
+        /* $this->getUser()->getId()); */
 
         $categId = $req->query->get('cat');
 
@@ -41,21 +43,6 @@ class DefaultController extends Controller{
      */
     public function cgu() {
         return $this->render("default/cgu.html.twig", []);
-    }
-
-    /**
-     * @Route("/test/{id}", name="test", requirements={"id": "\d+"}, methods={"GET"})
-     */
-    public function test($id) {
-        dump($id);
-        die;
-    }
-
-    /**
-     * @Route("/test2", name="test2")
-     */
-    public function test2(EntityManagerInterface $em) {
-
     }
 
     public function listAllCategories() {

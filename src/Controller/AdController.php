@@ -57,4 +57,5 @@ class AdController extends Controller
             "item" => $item
         ]);
     }
+
 }
