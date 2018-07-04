@@ -31,12 +31,6 @@ class Ad
 
     /**
      * @Assert\NotBlank(message="Veuillez renseigner la description")
-     * @Assert\Length(
-     *     min=3,
-     *     max=100,
-     *     minMessage="2 caractères minimum",
-     *     maxMessage="100 caractère maximum"
-     * )
      * @ORM\Column(type="text")
      */
     private $description;
@@ -69,6 +63,7 @@ class Ad
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="ads")
+     * @Assert\NotBlank(message="Veuillez renseigner une catégorie")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

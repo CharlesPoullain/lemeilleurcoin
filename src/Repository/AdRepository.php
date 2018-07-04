@@ -6,7 +6,7 @@ use App\Entity\Ad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-/**
+/*
  * @method Ad|null find($id, $lockMode = null, $lockVersion = null)
  * @method Ad|null findOneBy(array $criteria, array $orderBy = null)
  * @method Ad[]    findAll()
@@ -17,6 +17,36 @@ class AdRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Ad::class);
+    }
+
+    public function findHomeAds ($categId = null, $keyword = null) {
+
+        /*
+        $dql = "SELECT a FROM App\Entity\Ad a 
+        WHERE a.category = :cat 
+        ORDER BY a.dateCreated DESC";
+        $query = $this->getEntityManager()->createQuery($dql);
+       */
+
+        $qb = $this->createQueryBuilder("a");
+        if($categId) {
+            $qb->andWhere("a.category = :cat");
+            $qb->addOrderBy("a.dateCreated", "DESC");
+
+            $qb->setParameter("cat", $categId);
+        }
+
+        if($keyword) {
+            $qb->andWhere("(a.title LIKE :kw OR a.description LIKE :kw)");
+            $qb->setParameter("kw", "%$keyword%");
+        }
+
+        $query = $qb->getQuery();
+
+        $query->setMaxResults(50);
+        $ads = $query->getResult();
+
+        return $ads;
     }
 
 //    /**

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Ad;
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +36,13 @@ class AdType extends AbstractType
             ->add('price', null, [
                 "label" => "Prix demandé"
             ])
+            ->add('category', EntityType::class, array(
+                'class' => Category::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'DESC');
+                },
+            ))
             ->add('submit', SubmitType::class, [
                 "label" => "Envoyer"
             ])

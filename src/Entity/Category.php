@@ -13,6 +13,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Category
 {
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

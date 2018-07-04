@@ -5,3 +5,8 @@
 
 #adcard {
 }
+
+@font-face {
+ font-family: america;
+ src: url('../America-Regular.otf');
+}

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="icon" href="{{ asset("suitcase.png") }}" />
+        <link rel="icon" href="{{ asset("collaboration.png") }}" />
         <link rel="stylesheet" href="{{ asset("bootstrap/css/bootstrap.css") }}">
         {#
         <script src="{{ asset("bootstrap/js/bootstrap.bundle.js") }}"></script>
@@ -21,13 +21,13 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="{{ path('home') }}" >
-                    <img src="{{ asset("suitcase.svg") }}" width="40" height="40" class="d-inline-block" alt="">
-                    Le meilleur coin
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a style="margin: 0;" class="navbar-brand" href="{{ path('home') }}" >
+                    <img style="margin: auto; width: 100%;" src="{{ asset("collaboration.svg") }}" width="60" height="60" class="d-inline-block" alt="">
+                    <p style="font-family: america; width: 100%; font-size: 30px; ">Le meilleur coin</p>
                 </a>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul id="navbarmain" class="navbar-nav">
+                    <ul id="navbarmain" style="margin: auto;" class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('home') }}" title="Home">Home</a>
                         </li>
@@ -45,6 +45,25 @@
                         </li>
                     </ul>
                 </div>
+                <div>
+                    <form action="{{ path('home') }}" style='position: relative; width: 500px'>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    {{ render(controller(
+                                        'App\\Controller\\DefaultController:listAllCategories'
+                                    )) }}
+                                </div>
+                                <div class="col-sm">
+                                    <input class="form-control col-auto" type="text" name="q" value="{{ app.request.get('q') }}" placeholder="mot clé">
+                                </div>
+                                <div class="col-sm">
+                                    <button type="submit" class="btn btn-primary col-auto">Filtrer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </nav>
         </header>
         {% for label, messages in app.flashes %}
@@ -55,7 +74,11 @@
 
             {% endfor %}
         {% endfor %}
-        <main>{% block main %} {% endblock %}</main>
+        <main style="margin-top: 50px;">
+            <div class="card" style="min-height: 75vh; margin: auto; margin-top: 20px; width: 95%; background-color: rgba(7,3,1,0.1)">
+                {% block main %} {% endblock %}
+            </div>
+        </main>
         <footer></footer>
     </body>
 </html>
