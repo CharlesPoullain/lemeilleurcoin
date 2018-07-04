@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{%  block title %} Détail | {{ parent() }}{% endblock %}
+
+{% block main %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; text-align: center }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .main-block-form { margin: 1em auto; width: 80%;}
+    </style>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: white;">
+            <li class="breadcrumb-item"><a href="{{ path('home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Détail</li>
+        </ol>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+        <div class="example-wrapper" style="margin-top: 25%;">
+            <h3>Objet de l'annonce :  {{ item.title }} </h3>
+
+            <p>Numéro d'annonce : {{ item.id }}</p>
+            <p>Description : {{ item.description }}</p>
+            <p>Prix : {{ item.price }}</p>
+            <p>Lieux : {{ item.city }} - {{ item.zip }}</p>
+            <p>Date de création de l'annonce : {{ item.dateCreated |date("d/m/Y") }}</p>
+            <div id="citydiv" style="visibility: hidden;">{{ item.city }}</div>
+        </div>
+            </div>
+            <div class="col-sm">
+
+            <div id="map" style="height: 500px; width: 500px; margin: auto; margin-bottom: 50px;"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

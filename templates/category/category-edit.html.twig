@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{%  block title %} Détail | {{ parent() }}{% endblock %}
+
+{% block main %}
+
+    <div>
+        <div style="margin-top: 50px;">
+            <h4 style="text-align: center; margin-bottom: 40px;">Modifier le nom de la catégorie <strong>{{ selectedcategory.name }}</strong></h4>
+        </div>
+
+
+        <div style="text-align: center;  padding-top: 20px; width: 40%; margin: auto">
+            {% form_theme categoryForm 'bootstrap_4_layout.html.twig' %}
+
+            {{  form(categoryForm, {"attr": {"novalidate": "novalidate"}}) }}
+
+        </div>
+    </div>
+{% endblock %}

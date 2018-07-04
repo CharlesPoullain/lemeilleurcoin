@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{%  block title %} {{ parent() }} | Home{% endblock %}
+
+{% block main %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; text-align: center }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div style="margin-top: 20px; width: 90%; margin: auto">
+        <h1>Accueil</h1>
+
+        <div style="margin-top: 40px;">
+        <h3>Liste des annonces : </h3>
+            <div class="container">
+                <div class="row" style="margin-top: 40px;">
+
+                {% for ad in ads %}
+                    <div class="col" style="margin-bottom: 40px; width: 18rem;">
+                        <a href="{{ path('detail', {"id": ad.id}) }}">
+                            <div id="adcard" class="card alert-primary" style="padding-left: 10px; padding-right: 10px;">
+                             <div style="position:relative; margin-top: 10px;">
+                                    <p style="text-align: left;">{{ ad.title }}</p>
+                                    <div style="margin-top: 20px;">
+                                        <p>{{ ad.price }} €</p>
+                                    </div>
+                                    <p style="position: absolute; bottom: 5px; right: 5px; font-size: 10px;"><em>{{ ad.dateCreated |date("d/m/Y") }}</em></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    Pas d'annonces
+                {% endfor %}
+                </div>
+
+            </div>
+            </div>
+    </div>
+
+
+{% endblock %}
