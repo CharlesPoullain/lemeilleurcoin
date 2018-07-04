@@ -67,6 +67,12 @@ class Ad
      */
     private $dateCreated;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function getId()
     {
         return $this->id;
@@ -140,6 +146,18 @@ class Ad
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

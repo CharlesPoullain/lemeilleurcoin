@@ -11,10 +11,13 @@
 
 
         <div style="text-align: center;  padding-top: 20px; width: 40%; margin: auto">
-            {% form_theme categoryForm 'bootstrap_4_layout.html.twig' %}
 
-            {{  form(categoryForm, {"attr": {"novalidate": "novalidate"}}) }}
+            {#{{  form(categoryForm, {"attr": {"novalidate": "novalidate"}}) }}#}
 
+            {{ form_start(categoryForm) }}
+            {{ form_widget(categoryForm) }}
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+            {{ form_end(categoryForm) }}
         </div>
     </div>
 {% endblock %}

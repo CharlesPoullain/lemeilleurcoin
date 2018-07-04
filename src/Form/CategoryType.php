@@ -19,10 +19,7 @@ class CategoryType extends AbstractType
                         'placeholder' => 'Nouveau nom',
                     )),
                 ["label" => "Name"]
-            )
-            ->add('submit', SubmitType::class, [
-            "label" => "Envoyer"
-    ]);
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

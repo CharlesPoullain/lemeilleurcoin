@@ -33,7 +33,6 @@ class AdType extends AbstractType
             ->add('price', null, [
                 "label" => "Prix demandé"
             ])
-
             ->add('submit', SubmitType::class, [
                 "label" => "Envoyer"
             ])
