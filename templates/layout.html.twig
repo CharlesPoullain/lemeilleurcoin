@@ -45,26 +45,29 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <form action="{{ path('home') }}" style='position: relative; width: 500px'>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    {{ render(controller(
-                                        'App\\Controller\\DefaultController:listAllCategories'
-                                    )) }}
-                                </div>
-                                <div class="col-sm">
-                                    <input class="form-control col-auto" type="text" name="q" value="{{ app.request.get('q') }}" placeholder="mot clé">
-                                </div>
-                                <div class="col-sm">
-                                    <button type="submit" class="btn btn-primary col-auto">Filtrer</button>
-                                </div>
+                <a class="nav-link" href="{{ path('register') }}" title="login">S'inscrire</a>
+                <a class="nav-link" href="{{ path('login') }}" title="login">Se Connecter</a>
+
+            </nav>
+            <div    >
+                <form action="{{ path('home') }}" style='position: relative;'>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                {{ render(controller(
+                                    'App\\Controller\\DefaultController:listAllCategories'
+                                )) }}
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-control col-auto" type="text" name="q" value="{{ app.request.get('q') }}" placeholder="mot clé">
+                            </div>
+                            <div class="col-sm">
+                                <button type="submit" class="btn col-auto button-details"><i class="fas fa-search"></i> Rechercher</button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </nav>
+                    </div>
+                </form>
+            </div>
         </header>
         {% for label, messages in app.flashes %}
             {% for message in messages %}

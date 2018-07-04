@@ -10,3 +10,11 @@
  font-family: america;
  src: url('../America-Regular.otf');
 }
+
+.button-details {
+ background-color: #4DB5FF;
+ color: white;
+}
+.button-details:hover{
+ background-color: #0D47A1 !important;
+}

@@ -43,10 +43,6 @@ class AdType extends AbstractType
                         ->orderBy('c.name', 'DESC');
                 },
             ))
-            ->add('submit', SubmitType::class, [
-                "label" => "Envoyer"
-            ])
-
         ;
     }
 

@@ -15,14 +15,30 @@
                 <div class="row" style="margin-top: 40px;">
 
                 {% for ad in ads %}
-                    <div class="col" style="margin-bottom: 40px; width: 18rem;">
+                    <div class="col-4" style="margin-bottom: 40px; width: 18rem;">
                         <div id="adcard" class="card adcard" style="border-radius: 15px; box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.2); background-color: white; padding-left: 10px; padding-right: 10px;">
                          <div style="position:relative; margin-top: 10px;">
                              <div style="text-align: left;">
+                                 {% if ad.category == 'Véhicule' %}
+                                    <i style="color: rgba(51,158,84,1);" class="fas fa-car"></i>
+                                {% elseif ad.category == 'Immobilier' %}
+                                    <i style="color: #4DB5FF;" class="fas fa-warehouse"></i>
+                                {% elseif ad.category == 'Maison' %}
+                                    <i style="color: #EF2648;" class="fas fa-home"></i>
+                                {% elseif ad.category == 'Matériel professionnel' %}
+                                    <i style="color: #FFA511;" class="fas fa-wrench"></i>
+                                {% elseif ad.category == 'Autres' %}
+                                    <i style="color: rgba(95,19,158,1);" class="fab fa-envira"></i>
+                                {% elseif ad.category == 'Loisirs' %}
+                                    <i style="color: rgba(158,151,27,1)" class="fas fa-football-ball"></i>
+                                {% elseif ad.category == 'Multimédia' %}
+                                    <i style="color: rgba(92,135,158,1)" class="fas fa-desktop"></i>
+                                 {% endif %}
+
                                  <p> Nom de l'annonce : <strong>{{ ad.title }}</strong></p>
                                 <p>Prix : {{ ad.price }} €</p>
-                                 <a  href="{{ path('detail', {"id": ad.id}) }}">
-                                    <button style="margin-bottom: 30px; background-color: #4DB5FF; color: white;" type="button" class="btn">Détails</button>
+                                 <a class="" href="{{ path('detail', {"id": ad.id}) }}">
+                                    <button style="margin-bottom: 30px; background-color: #4DB5FF; color: white;" type="button" class="btn button-details">Détails <i class="fas fa-info-circle"></i></button>
                                  </a>
                              </div>
                                  <p style="position: absolute; bottom: 5px; right: 5px; font-size: 10px;"><em>{{ ad.dateCreated |date("d/m/Y") }}</em></p>

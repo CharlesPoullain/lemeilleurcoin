@@ -32,7 +32,7 @@ class AdController extends Controller
             $em->persist($ad);
             $em->flush();
 
-            $this->addFlash("success", "Votre annonce à bien été prise en compte !");
+            $this->addFlash("success", "Votre annonce a bien été prise en compte !");
 
             return $this->redirectToRoute('home');
 
