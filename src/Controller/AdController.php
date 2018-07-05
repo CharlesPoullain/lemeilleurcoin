@@ -32,12 +32,15 @@ class AdController extends Controller
         $adForm->handleRequest($resquest);
         if($adForm->isSubmitted() && $adForm->isValid()) {
 
-            $fileurl = $picture->getPath();
-            
+            $file = $picture->getImage();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
             $file->move(
                 $this->getParameter('images_directory'),
-                $fileurl
+                $fileName
             );
+
+            $picture->setPath($fileName);
 
             $em = $this->getDoctrine()->getManager();
             $ad->setDateCreated(new \DateTime());
@@ -49,7 +52,7 @@ class AdController extends Controller
 
             $this->addFlash("success", "Votre annonce a bien été prise en compte !");
 
-            //return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
 
         }
 
@@ -152,11 +155,37 @@ class AdController extends Controller
      */
     public function adedit(Request $resquest, $id) {
 
+        /*
+
+            $file = $picture->getImage();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+
+            $picture->setPath($fileName);
+
+            $em = $this->getDoctrine()->getManager();
+            $ad->setDateCreated(new \DateTime());
+            $ad->setMaker($this->getUser());
+            $em->persist($ad);
+            $em->persist($picture);
+
+            $em->flush();
+
+            $this->addFlash("success", "Votre annonce a bien été prise en compte !");
+
+            //return $this->redirectToRoute('home');
+
+        }
+         */
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository(Ad::class)->find($id);
-
         $adForm = $this->createForm(AdType::class, $ad);
 
+        $picture = new Picture();
         $adForm->handleRequest($resquest);
 
         if($adForm->isSubmitted() && $adForm->isValid()) {
@@ -165,6 +194,19 @@ class AdController extends Controller
                     'Pas d\'annonce trouvé pour l\'id '.$id
                 );
             }
+
+            $file = $ad->getPictures()[0]->getImage();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+            $picture->setAd($ad);
+
+            $picture->setPath($fileName);
+            $em->persist($picture);
+            $em->persist($ad);
             $em->flush();
             $this->addFlash("success", "Votre annonce a bien été modifiée !");
 

@@ -22,6 +22,24 @@ class Picture
      */
     private $path;
 
+    private $image;
+
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ad", inversedBy="pictures")
      */
@@ -32,12 +50,12 @@ class Picture
         return $this->id;
     }
 
-    public function getPath(): ?string
+    public function getPath()
     {
         return $this->path;
     }
 
-    public function setPath(string $path): self
+    public function setPath($path): self
     {
         $this->path = $path;
 

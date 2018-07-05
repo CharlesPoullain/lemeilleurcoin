@@ -39,4 +39,4 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
 parameters:
-    images_directory: '%kernel.project_dir%/uploads/public/images'
+    images_directory: '%kernel.project_dir%/public/upload/images'
