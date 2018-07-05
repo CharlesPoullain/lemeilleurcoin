@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{%  block title %} Image | {{ parent() }}{% endblock %}
+
+{% block main %}
+
+    <div>
+        <div style="margin-top: 50px;">
+            <h4 style="text-align: center; margin-bottom: 40px;">Ajouter une image</h4>
+        </div>
+
+
+        <div style="text-align: center;  padding-top: 20px; width: 40%; margin: auto">
+        {#
+            {{ form_start(pictureForm) }}
+            {{ form_widget(pictureForm) }}
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+            {{ form_end(pictureForm) }}
+
+        #}
+        </div>
+    </div>
+{% endblock %}

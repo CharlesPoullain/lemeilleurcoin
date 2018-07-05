@@ -30,6 +30,7 @@ class UserController extends Controller
 
             $em->persist($user);
             $em->flush();
+            return $this->redirectToRoute('login');
 
         }
 
@@ -54,6 +55,7 @@ class UserController extends Controller
             'error' => $error,
             '_controller' => 'AppBundle:Security:login',
         ));
+
     }
     /**
      * @Route("/logout", name="logout")

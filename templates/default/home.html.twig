@@ -28,18 +28,23 @@
                                                  </a>
                                              </div>
                                              {% else %}
+                                                 {% if app.user %}
                                                  <div style="position: absolute; right: 5px;">
                                                      <a href="{{ path('addtobookmark', {"id": ad.id}) }}">
                                                          <i style="color: red;" class="far fa-heart"></i>
                                                      </a>
                                                  </div>
+                                                 {% endif %}
                                          {% endif %}
                                      {% else %}
+                                         {% if app.user %}
                                          <div style="position: absolute; right: 5px;">
                                              <a href="{{ path('addtobookmark', {"id": ad.id}) }}">
                                                 <i style="color: red;" class="far fa-heart"></i>
                                              </a>
                                          </div>
+                                         {% endif %}
+
                                      {% endfor %}
                                  {% endif %}
                              </div>

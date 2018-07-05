@@ -7,6 +7,7 @@ use App\Entity\Category;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -55,6 +56,12 @@ class AdType extends AbstractType
                         ->orderBy('c.name', 'DESC');
                 },
             ))
+            ->add('pictures', CollectionType::class,
+                array(
+                    'label' => 'Image',
+                    'entry_type' => PictureType::class
+                )
+            )
         ;
     }
 

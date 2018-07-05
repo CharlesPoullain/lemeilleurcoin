@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\User;
 use App\Form\AdType;
 use App\Entity\Ad;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 class AdController extends Controller
 {
@@ -23,26 +24,43 @@ class AdController extends Controller
      */
     public function adCreate(Request $resquest) {
         $ad = new Ad();
+        $picture = new Picture();
+        $ad->addPicture($picture);
+
         $adForm = $this->createForm(AdType::class, $ad);
 
         $adForm->handleRequest($resquest);
         if($adForm->isSubmitted() && $adForm->isValid()) {
+
+            $fileurl = $picture->getPath();
+            
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileurl
+            );
+
             $em = $this->getDoctrine()->getManager();
             $ad->setDateCreated(new \DateTime());
             $ad->setMaker($this->getUser());
-
             $em->persist($ad);
+            $em->persist($picture);
+
             $em->flush();
 
             $this->addFlash("success", "Votre annonce a bien été prise en compte !");
 
-            return $this->redirectToRoute('home');
+            //return $this->redirectToRoute('home');
 
         }
 
         return $this->render('ad/ad.html.twig', [
             "adForm" => $adForm->createView()
         ]);
+    }
+
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 
     /**
@@ -129,5 +147,50 @@ class AdController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/ad/edit/{id}", name="adedit")
+     */
+    public function adedit(Request $resquest, $id) {
 
+        $em = $this->getDoctrine()->getManager();
+        $ad = $em->getRepository(Ad::class)->find($id);
+
+        $adForm = $this->createForm(AdType::class, $ad);
+
+        $adForm->handleRequest($resquest);
+
+        if($adForm->isSubmitted() && $adForm->isValid()) {
+            if (!$ad) {
+                throw $this->createNotFoundException(
+                    'Pas d\'annonce trouvé pour l\'id '.$id
+                );
+            }
+            $em->flush();
+            $this->addFlash("success", "Votre annonce a bien été modifiée !");
+
+            return $this->redirectToRoute('myads');
+        }
+
+        return $this->render('ad/user_edit_ad.html.twig', [
+            "adForm" => $adForm->createView(),
+            "ad" => $ad
+        ]);
+    }
+
+    /**
+     * @Route("/ad/delete/{id}", name="addelete")
+     */
+    public function addelete(Request $resquest, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $ad = $em->getRepository(Ad::class)->find($id);
+
+        $em->remove($ad);
+        $em->flush();
+
+        $this->addFlash("success", "Votre annonce a bien été suprimée !");
+
+        return $this->redirectToRoute('myads');
+
+    }
 }

@@ -37,3 +37,6 @@ security:
          - { path: ^/mybookmarks, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+parameters:
+    images_directory: '%kernel.project_dir%/uploads/public/images'
