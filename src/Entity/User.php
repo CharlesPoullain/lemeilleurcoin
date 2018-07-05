@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,6 +47,23 @@ class User implements UserInterface
      * @Assert\NotBlank(message="Veuillez renseigner un mot de passe")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="maker")
+     */
+    private $ads;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Ad", inversedBy="users")
+     */
+    private $bookmark;
+
+
+    public function __construct()
+    {
+        $this->ads = new ArrayCollection();
+        $this->bookmark = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -119,6 +138,63 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Collection|Ad[]
+     */
+    public function getAds(): Collection
+    {
+        return $this->ads;
+    }
+
+    public function addAd(Ad $ad): self
+    {
+        if (!$this->ads->contains($ad)) {
+            $this->ads[] = $ad;
+            $ad->setMaker($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAd(Ad $ad): self
+    {
+        if ($this->ads->contains($ad)) {
+            $this->ads->removeElement($ad);
+            // set the owning side to null (unless already changed)
+            if ($ad->getMaker() === $this) {
+                $ad->setMaker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ad[]
+     */
+    public function getBookmark(): Collection
+    {
+        return $this->bookmark;
+    }
+
+    public function addBookmark(Ad $bookmark): self
+    {
+        if (!$this->bookmark->contains($bookmark)) {
+            $this->bookmark[] = $bookmark;
+        }
+
+        return $this;
+    }
+
+    public function removeBookmark(Ad $bookmark): self
+    {
+        if ($this->bookmark->contains($bookmark)) {
+            $this->bookmark->removeElement($bookmark);
+        }
+
+        return $this;
     }
 
 

@@ -18,3 +18,27 @@
 .button-details:hover{
  background-color: #0D47A1 !important;
 }
+
+.button-modifs {
+ background-color: #FFC84D;
+ color: white;
+}
+.button-modifs:hover{
+ background-color: #9b792f !important;
+}
+
+.button-suppress {
+ background-color: #C52056;
+ color: white;
+}
+.button-suppress:hover{
+ background-color: #61132e !important;
+}
+
+.text-dec-none {
+  text-decoration: none;
+ }
+
+.text-dec-none:hover {
+ text-decoration: none;
+}

@@ -18,6 +18,31 @@
                     <div class="col-4" style="margin-bottom: 40px; width: 18rem;">
                         <div id="adcard" class="card adcard" style="border-radius: 15px; box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.2); background-color: white; padding-left: 10px; padding-right: 10px;">
                          <div style="position:relative; margin-top: 10px;">
+                             <div>
+                                 {% if ad.users %}
+                                     {% for user in ad.users %}
+                                         {% if user == app.user %}
+                                             <div style="position: absolute; right: 5px;">
+                                                 <a href="{{ path('removetobookmark', {"id": ad.id}) }}">
+                                                    <i style="color: red;" class="fas fa-heart"></i>
+                                                 </a>
+                                             </div>
+                                             {% else %}
+                                                 <div style="position: absolute; right: 5px;">
+                                                     <a href="{{ path('addtobookmark', {"id": ad.id}) }}">
+                                                         <i style="color: red;" class="far fa-heart"></i>
+                                                     </a>
+                                                 </div>
+                                         {% endif %}
+                                     {% else %}
+                                         <div style="position: absolute; right: 5px;">
+                                             <a href="{{ path('addtobookmark', {"id": ad.id}) }}">
+                                                <i style="color: red;" class="far fa-heart"></i>
+                                             </a>
+                                         </div>
+                                     {% endfor %}
+                                 {% endif %}
+                             </div>
                              <div style="text-align: left;">
                                  {% if ad.category == 'Véhicule' %}
                                     <i style="color: rgba(51,158,84,1);" class="fas fa-car"></i>

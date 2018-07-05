@@ -14,8 +14,10 @@
 
         <div style="text-align: center; margin-top: 50px; padding-top: 20px;">
             <div style="width: 60%; margin: auto;">
-                {{  form(adForm, {"attr": {"novalidate": "novalidate"}}) }}
-                <button style="margin-top: 30px;" type="submit" class="btn btn-primary">Se connecter</button>
+                {{ form_start(adForm) }}
+                {{ form_widget(adForm) }}
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                {{ form_end(adForm) }}
             </div>
         </div>
     </div>

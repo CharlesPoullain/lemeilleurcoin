@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+{%  block title %} Détail | {{ parent() }}{% endblock %}
+
+{% block main %}
+    <div style="text-align: center;">
+        <div style="margin-top: 40px;">
+            <h3>Liste de mes favoris : </h3>
+
+            <div class="container">
+                <div class="row" style="margin-top: 40px;">
+
+                    {% for ad in ads %}
+                        {% for user in ad.users %}
+                            {% if user == app.user %}
+                                <div class="col-4" style="margin-bottom: 40px; width: 18rem;">
+                                    <div id="adcard" class="card adcard" style="border-radius: 15px; box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.2); background-color: white; padding-left: 10px; padding-right: 10px;">
+                                        <div style="position:relative; margin-top: 10px;">
+                                            <div style="position: absolute; right: 5px;">
+                                                <a href="{{ path('removetobookmark', {"id": ad.id}) }}">
+                                                    <i style="color: red;" class="fas fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div style="text-align: left;">
+
+                                                {% if ad.category == 'Véhicule' %}
+                                                    <i style="color: rgba(51,158,84,1);" class="fas fa-car"></i>
+                                                {% elseif ad.category == 'Immobilier' %}
+                                                    <i style="color: #4DB5FF;" class="fas fa-warehouse"></i>
+                                                {% elseif ad.category == 'Maison' %}
+                                                    <i style="color: #EF2648;" class="fas fa-home"></i>
+                                                {% elseif ad.category == 'Matériel professionnel' %}
+                                                    <i style="color: #FFA511;" class="fas fa-wrench"></i>
+                                                {% elseif ad.category == 'Autres' %}
+                                                    <i style="color: rgba(95,19,158,1);" class="fab fa-envira"></i>
+                                                {% elseif ad.category == 'Loisirs' %}
+                                                    <i style="color: rgba(158,151,27,1)" class="fas fa-football-ball"></i>
+                                                {% elseif ad.category == 'Multimédia' %}
+                                                    <i style="color: rgba(92,135,158,1)" class="fas fa-desktop"></i>
+                                                {% endif %}
+
+                                                <p> Nom de l'annonce : <strong>{{ ad.title }}</strong></p>
+                                                <p>Prix : {{ ad.price }} €</p>
+                                                <div class="container">
+                                                <div class="row">
+                                                    <div class="col-4" style="padding: 0px;">
+                                                        <a class="text-dec-none" href="{{ path('detail', {"id": ad.id}) }}">
+                                                            <button style="width: 100px;margin-bottom: 30px;" type="button" class="btn btn-sm button-details">Détails <i class="fas fa-info-circle"></i></button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <p style="position: absolute; bottom: 0px; right: 5px; font-size: 10px; margin-bottom: 2px;"><em>{{ ad.dateCreated |date("d/m/Y") }}</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Pas de favoris
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

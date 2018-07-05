@@ -24,7 +24,7 @@ class AdType extends AbstractType
                 ["label" => "Titre"]
             )
             ->add('description', null, [
-                "label" => "Ville",
+                "label" => "Description",
                 "attr" => [
                     'placeholder' => 'Description de l\'annonce',
                 ]

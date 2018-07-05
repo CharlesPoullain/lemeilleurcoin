@@ -49,6 +49,30 @@ class AdRepository extends ServiceEntityRepository
         return $ads;
     }
 
+    public function findUserAds ($userId) {
+
+        /*
+        $dql = "SELECT a FROM App\Entity\Ad a
+        WHERE a.category = :cat
+        ORDER BY a.dateCreated DESC";
+        $query = $this->getEntityManager()->createQuery($dql);
+       */
+
+        $qb = $this->createQueryBuilder("a");
+
+        $qb->andWhere("a.maker = :user");
+        $qb->addOrderBy("a.dateCreated", "DESC");
+
+        $qb->setParameter("user", $userId);
+
+        $query = $qb->getQuery();
+
+        $ads = $query->getResult();
+
+        return $ads;
+    }
+
+
 //    /**
 //     * @return Ad[] Returns an array of Ad objects
 //     */
